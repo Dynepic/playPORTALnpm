@@ -3,6 +3,10 @@ var axios = require('axios');
 var APIURLs = require('../utils/APIURLs');
 var PPRequest = require('../utils/request');
 
+// Disable logging
+var console = {};
+console.log = function(){};
+
 export const createBucket = (bucketName, bucketUsers, isPublic) => {
   return new Promise((resolve, reject) => {
     if(bucketName != null) {

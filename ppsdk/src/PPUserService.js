@@ -3,6 +3,9 @@ var axios = require('axios');
 var APIURLs = require('../utils/APIURLs');
 var PPRequest = require('../utils/request');
 
+// Disable logging
+var console = {};
+console.log = function(){};
 
 export const getProfile = () => {
   return new Promise((resolve, reject) => {

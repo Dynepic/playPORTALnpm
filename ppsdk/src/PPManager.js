@@ -29,6 +29,10 @@ let Authtoken = Authbase +
 
 let userListener;
 
+// Disable logging 
+var console = {};
+console.log = function(){};
+
 // internal convenience methods
 const _bucketName = (isPrivate) => {
   if(!isPrivate) {
@@ -72,7 +76,6 @@ export const PPconfigure =  (id, sec, redir) => {
                 console.log("me:", ppsdkUserParms);
                 if(userListener) userListener(response, authStatus);
                 const bu = [];
-//                createBucket(_bucketName(true), bu, true)
                 PPData.createBucket(_bucketName(true), bu, true)
                 .then((response) => {
                   console.log("join global app data success: " + response);
@@ -82,7 +85,6 @@ export const PPconfigure =  (id, sec, redir) => {
                 });
 
                 bu.push(ppsdkUserParms.userId);
-//                createBucket(_bucketName(false), bu, false)
                 PPData.createBucket(_bucketName(false), bu, false)
                 .then((response) => {
                   console.log("create private data store success: " + response);
@@ -128,7 +130,6 @@ export const PPhandleOpenURL = (navigation) => {
       console.log("me:", ppsdkUserParms);
       if(userListener) userListener(response, authStatus);
       const bu = [];
-//      createBucket(_bucketName(true), bu, true)
       PPData.createBucket(_bucketName(true), bu, true)
       .then((response) => {
         console.log("join global app data success: " + response);
@@ -138,7 +139,6 @@ export const PPhandleOpenURL = (navigation) => {
       });
 
       bu.push(ppsdkUserParms.userId);
-//      createBucket(_bucketName(false), bu, false)
       PPData.createBucket(_bucketName(false), bu, false)
       .then((response) => {
         console.log("create private data store success: " + response);
@@ -212,7 +212,6 @@ const getImAnonymousStatus = () => {
 };
 
 const getAuthPrefs = async () => {
-//  return new Promise((resolve, reject) => {
     await AsyncStorage.getItem('@ppsdkAuthParms', (err, result) => {
     if(err) {
         console.error("getAuthPrefs error:" + err + " result:"+ result);
