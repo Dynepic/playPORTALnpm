@@ -1,7 +1,7 @@
 ![](./readmeAssets/wordmark.png)
 ##### playPORTAL <sup>TM</sup> provides a service to app developers for managing users of all ages and the data associated with the app and the app users, while providing compliance with required COPPA laws and guidelines.
 
-# <b>Hello World - Javascript</b></br>
+# <b> playPORTAL Javascript SDK</b></br>
 
 ## Getting Started
 
@@ -33,7 +33,7 @@
 From the root of your project, install the playPORTAL SDK with:
 
   ```
-  $ npm install playPORTAL --save
+    $ npm i playportal
   ```
 
 * ### <b>Step 5:</b> Add Client ID and Client Secret to App
