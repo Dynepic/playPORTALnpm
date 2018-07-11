@@ -1,7 +1,7 @@
 ![](./readmeAssets/wordmark.png)
 ##### playPORTAL <sup>TM</sup> provides a service to app developers for managing users of all ages and the data associated with the app and the app users, while providing compliance with required COPPA laws and guidelines.
 
-# <b>Hello World - Javascript</b></br>
+# <b> playPORTAL Javascript SDK</b></br>
 
 ## Getting Started
 
@@ -30,17 +30,19 @@
   </br>
 
 * ### <b>Step 4:</b> Install playPORTAL npm package
-From the root of your project, install the playPORTAL SDK with:
 
-```
-$ npm install playPORTAL --save
-```
+  * From the root of your project, install the playPORTAL SDK with:
+
+  ```
+  $ npm i playportal
+  ```
 
 * ### <b>Step 5:</b> Add Client ID and Client Secret to App
-Add the following to the "include" section of your App.js (or other main application module).
+  * Add the following to the "include" section of your App.js (or other main application module).
+    * ###### For the purpose of running this HelloWorld app, these keys are in plain text in the file, but for a production app you must store them securely - they uniquely identify your app and grant the permissions to your app as defined in the playPORTAL Partner Dashboard.
 
-#### For React-Native
-```
+  * #### React-Native Example
+    ```
     import {
       PPManager,
       PPconfigure,
@@ -50,52 +52,54 @@ Add the following to the "include" section of your App.js (or other main applica
       PPaddUserListener,  
       PPreadData,
       PPwriteData,
-      PPgetFriends }
-      from './node_modules/playPORTAL/ppsdk/src/PPManager';
+      PPgetFriends 
+    } from './node_modules/playPORTAL/ppsdk/src/PPManager';
 
 
-// -----------------------------------------------------------------
-// Copy your user defines from playPORTAL dev website
-// -----------------------------------------------------------------
-const cid = 'iok-cid-e1faabb67829db61a0627dbeaca6ce66573d8913c2eddf94';
-const cse = 'iok-cse-74b5b658dd2190a87b426ea7c3face2a3b7a2d35978ac879';
-const redir = 'yourappurl://redirect';
+    // -----------------------------------------------------------------
+    // Copy your user defines from playPORTAL dev website
+    // -----------------------------------------------------------------
+    const cid = '<YOUR CLIENT_ID HERE>';
+    const cse = '<YOUR CLIENT_SECRET HERE>';
+    const redir = '<YOUR REDIRECT_URI HERE>';
 
-// In your app startup
+    // In your app startup
 
-export default class App extends React.Component {
-  state = {
-    response: {},
-  };
+    export default class App extends React.Component {
+      state = {
+        response: {},
+      };
 
-  componentDidMount = () => {
-    PPaddUserListener(AppListener); // configure callback
-    PPconfigure(cid, cse, redir); // do the init
-  };
+      componentDidMount = () => {
+        PPaddUserListener(AppListener); // configure callback
+        PPconfigure(cid, cse, redir); // do the init
+      };
 
-  render() {
-    return <RootStack />;
-  }
-}
+      render() {
+        return <RootStack />;
+      }
+    }
+    ```
 
-```
 
-#### For Node.js
-```
-// -------------------------------------------------------
-// Node.js app
-// -------------------------------------------------------
-// In your app
-var PPManager = require('./node_modules/playPORTAL/ppsdk/src/PPManager');
+  * #### Node.js Example
+    ```
+    // -------------------------------------------------------
+    // Node.js app
+    // -------------------------------------------------------
+    // In your app
+    var PPManager = require('./node_modules/playPORTAL/ppsdk/src/PPManager');
 
-```
+    ```
 
-###### For the purpose of running this HelloWorld app, these keys are in plain text in the file, but for a production app you must store them securely - they uniquely identify your app and grant the permissions to your app as defined in the playPORTAL Partner Dashboard.
-
-* ## <b>Step 6:</b> Run the app.
+* ## <b>Step 6:</b> Run your app.
 
 * ## <b>Step 7:</b> Generate "Sandbox" users for testing.
-* In the [playPORTAL Partner Dashboard](https://partner.iokids.net), click on "Sandbox" in the left navigation pane.
-* Here you can generate different types of "Sandbox Users" so you can log in to your app and try it out.
-* "Sandbox Users" can be of type "Adult", "Parent", or "Child".
-* You can also create friendships between the users using the dropdowns in each "profile preview".
+  * In the [playPORTAL Partner Dashboard](https://partner.iokids.net), click on "Sandbox" in the left navigation pane.
+  * Here you can generate different types of "Sandbox Users" so you can log in to your app and try it out.
+  * "Sandbox Users" can be of type "Adult", "Parent", or "Child".
+  * You can also create friendships between the users using the dropdowns in each "profile preview".
+
+* ### For futher information run any of the playPORTAL Hello World Apps that use the playPORTAL JavaScript SDK.
+  * [playPORTAL Hello World - React Native]()
+  * [playPORTAL Hello World - NodeJS]()
