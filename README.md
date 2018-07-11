@@ -32,34 +32,34 @@
 * ### <b>Step 4:</b> Install playPORTAL npm package
 From the root of your project, install the playPORTAL SDK with:
 
-```
-$ npm install playPORTAL --save
-```
+  ```
+  $ npm install playPORTAL --save
+  ```
 
 * ### <b>Step 5:</b> Add Client ID and Client Secret to App
 Add the following to the "include" section of your App.js (or other main application module).
 
 #### For React-Native
 ```
-    import {
-      PPManager,
-      PPconfigure,
-      PPisAuthenticated,
-      PPgetLoginRoute,
-      PPhandleOpenURL,
-      PPaddUserListener,  
-      PPreadData,
-      PPwriteData,
-      PPgetFriends }
-      from './node_modules/playPORTAL/ppsdk/src/PPManager';
+import {
+  PPManager,
+  PPconfigure,
+  PPisAuthenticated,
+  PPgetLoginRoute,
+  PPhandleOpenURL,
+  PPaddUserListener,  
+  PPreadData,
+  PPwriteData,
+  PPgetFriends 
+} from './node_modules/playPORTAL/ppsdk/src/PPManager';
 
 
 // -----------------------------------------------------------------
 // Copy your user defines from playPORTAL dev website
 // -----------------------------------------------------------------
-const cid = 'iok-cid-e1faabb67829db61a0627dbeaca6ce66573d8913c2eddf94';
-const cse = 'iok-cse-74b5b658dd2190a87b426ea7c3face2a3b7a2d35978ac879';
-const redir = 'yourappurl://redirect';
+const cid = '<YOUR CLIENT_ID HERE>';
+const cse = '<YOUR CLIENT_SECRET HERE>';
+const redir = '<YOUR REDIRECT_URI HERE>';
 
 // In your app startup
 
