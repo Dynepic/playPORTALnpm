@@ -1,5 +1,5 @@
 {
-  "name": "playPORTAL",
+  "name": "playportal",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
     "semaphore": "^1.1.0"
   },
   "keywords": [
-    "COPPA", "U13", "kid safe", "SDK", "games"
+    "COPPA", "U13", "kid safe", "SDK", "games", "toys"
   ],
   "main": "index.js",
   "description": "Javascript SDK for utilizing playPORTAL service.",
