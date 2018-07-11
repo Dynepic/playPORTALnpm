@@ -7,14 +7,14 @@
 
 * ### <b>Step 1:</b> Create playPORTAL Partner Account
 
-	* Navigate to [playPORTAL Partner Dashboard](https://partner.iokids.net)
+	* Navigate to [playPORTAL Partner Dashboard](https://partner.playportal.io)
 	* Click on <b>Sign Up For Developer Account</b>
 	* After creating your account, email us at [info@playportal.io](mailto:info@playportal.io?subject=Developer%20Sandbox%20Access%20Request) to verify your account.
   </br>
 
 * ### <b>Step 2:</b> Register your App with playPORTAL
 
-	* After confirmation, log in to the [playPORTAL Partner Dashboard](https://partner.iokids.net)
+	* After confirmation, log in to the [playPORTAL Partner Dashboard](https://partner.playportal.io)
 	* In the left navigation bar click on the <b>Apps</b> tab.
 	* In the <b>Apps</b> panel, click on the "+ Add App" button.
 	* Add an icon, name & description for your app.
@@ -95,11 +95,11 @@
 * ## <b>Step 6:</b> Run your app.
 
 * ## <b>Step 7:</b> Generate "Sandbox" users for testing.
-  * In the [playPORTAL Partner Dashboard](https://partner.iokids.net), click on "Sandbox" in the left navigation pane.
+  * In the [playPORTAL Partner Dashboard](https://partner.playportal.io), click on "Sandbox" in the left navigation pane.
   * Here you can generate different types of "Sandbox Users" so you can log in to your app and try it out.
   * "Sandbox Users" can be of type "Adult", "Parent", or "Child".
   * You can also create friendships between the users using the dropdowns in each "profile preview".
 
 * ### For futher information run any of the playPORTAL Hello World Apps that use the playPORTAL JavaScript SDK.
-  * [playPORTAL Hello World - React Native]()
-  * [playPORTAL Hello World - NodeJS]()
+  * playPORTAL Hello World For React Native (Coming Soon!)
+  * playPORTAL Hello World For NodeJS (Coming Soon!)
