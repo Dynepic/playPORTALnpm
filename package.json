@@ -2,9 +2,18 @@
   "name": "playPORTAL",
   "version": "0.0.1",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "tests": "node test.js"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "semaphore": "^1.1.0"
-  }
+  },
+  "keywords": [
+    "COPPA", "U13", "kid safe", "SDK", "games"
+  ],
+  "main": "index.js",
+  "description": "Javascript SDK for utilizing playPORTAL service.",
+  "author": "Gary Baldwin <gary@dynepic.com> (https://playportal.io)",
+  "license": "MIT"
 }
