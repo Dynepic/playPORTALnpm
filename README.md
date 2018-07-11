@@ -8,9 +8,9 @@ $ npm install playPORTAL --save
 Add the following to the "include" section of your App.js (or other main application module).
 
 #### For React-Native
-{
+`
     import { PPManager, PPconfigure, PPisAuthenticated, PPgetLoginRoute, PPhandleOpenURL, PPaddUserListener,  PPreadData, PPwriteData, PPgetFriends } from './node_modules/playPORTAL/ppsdk/src/PPManager';
-}
+
 
 // -----------------------------------------------------------------
 // Copy your user defines from playPORTAL dev website
@@ -35,6 +35,8 @@ export default class App extends React.Component {
     return <RootStack />;
   }
 }
+
+`
 
 #### For Node.js
 // -------------------------------------------------------
