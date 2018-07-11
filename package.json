@@ -1,6 +1,6 @@
 {
   "name": "playportal",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "scripts": {
     "tests": "node test.js"
@@ -15,7 +15,12 @@
   },
   "homepage": "https://github.com/Dynepic/playPORTALnpm.git#README",
   "keywords": [
-    "COPPA", "U13", "kid safe", "SDK", "games", "toys"
+    "COPPA",
+    "U13",
+    "kid safe",
+    "SDK",
+    "games",
+    "toys"
   ],
   "main": "index.js",
   "description": "Javascript SDK for utilizing playPORTAL service.",
@@ -33,5 +38,5 @@
       "email": "areiter@netrist.com"
     }
   ],
-    "license": "ISC"
+  "license": "ISC"
 }
