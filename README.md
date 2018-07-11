@@ -101,5 +101,5 @@
   * You can also create friendships between the users using the dropdowns in each "profile preview".
 
 * ### For futher information run any of the playPORTAL Hello World Apps that use the playPORTAL JavaScript SDK.
-  * [playPORTAL Hello World - React Native]()
-  * [playPORTAL Hello World - NodeJS]()
+  * playPORTAL Hello World For React Native (Coming Soon!)
+  * playPORTAL Hello World For NodeJS (Coming Soon!)
