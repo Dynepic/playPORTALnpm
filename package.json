@@ -22,15 +22,15 @@
   "maintainers": [
     {
       "name": "Gary Baldwin",
-      "email": gary@dynepic.com"
+      "email": "gary@dynepic.com"
     },
     {
       "name": "Jett Black",
-      "email": jett@dynepic.com"
+      "email": "jett@dynepic.com"
     },
     {
       "name": "Adam Reiter",
-      "email": areiter@netrist.com"
+      "email": "areiter@netrist.com"
     }
   ],
     "license": "ISC"
