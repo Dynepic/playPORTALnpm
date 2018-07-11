@@ -1,7 +1,7 @@
 {
   "name": "playportal",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "scripts": {
     "tests": "node test.js"
   },
@@ -9,11 +9,29 @@
     "axios": "^0.18.0",
     "semaphore": "^1.1.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dynepic/playPORTALnpm.git"
+  },
+  "homepage": "https://github.com/Dynepic/playPORTALnpm.git#README",
   "keywords": [
     "COPPA", "U13", "kid safe", "SDK", "games", "toys"
   ],
   "main": "index.js",
   "description": "Javascript SDK for utilizing playPORTAL service.",
-  "author": "Gary Baldwin <gary@dynepic.com> (https://playportal.io)",
-  "license": "MIT"
+  "maintainers": [
+    {
+      "name": "Gary Baldwin",
+      "email": gary@dynepic.com"
+    },
+    {
+      "name": "Jett Black",
+      "email": jett@dynepic.com"
+    },
+    {
+      "name": "Adam Reiter",
+      "email": areiter@netrist.com"
+    }
+  ],
+    "license": "ISC"
 }
