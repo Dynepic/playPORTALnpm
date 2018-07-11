@@ -37,4 +37,8 @@ export default class App extends React.Component {
 }
 
 #### For Node.js
+// -------------------------------------------------------
+// Node.js app
+// -------------------------------------------------------
+// In your app
 var PPManager = require('./node_modules/playPORTAL/ppsdk/src/PPManager');
