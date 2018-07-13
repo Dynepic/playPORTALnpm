@@ -1,7 +1,7 @@
 'use strict';
-import { AsyncStorage} from 'react-native';
 import axios from 'axios';
 import semaphore from 'semaphore';
+
 const PPUser = require('./PPUserService');
 const PPData = require('./PPDataService');
 const APIURLs = require('../utils/APIURLs');
@@ -10,10 +10,11 @@ var async = require('async');
 var Promise = require('promise');
 var refreshInProgress = require('semaphore')(1);
 
-const clientId="";
-const clientSecret="";
-const redirectURI="";
-const authStatus = false;
+var clientId="";
+var clientSecret="";
+var redirectURI="";
+var environment="SANDBOX";
+var authStatus = false;
 let setImAnonymousStatus = false;
 let friends = [];
 var ppsdkUserParms={};
@@ -29,7 +30,7 @@ let Authtoken = Authbase +
 
 let userListener;
 
-// Disable logging 
+// Disable logging
 var console = {};
 console.log = function(){};
 
@@ -51,17 +52,18 @@ export const PPgetAccessToken = () => {
   return ppsdkAuthParms.accessToken;
 }
 export const PPgetRefreshToken = () => { return ppsdkAuthParms.refreshToken; }
-
+export const PPgetEnvironment = () => { return environment; }
 // ------------------------------------------------------------
 // PPconfigure is called first by the app to initialize the ppsdk
 // If the "userListener" is already registered it will invoke
 // it with the authentiation status (logged in or not) and user
 // info (if it exists)
 // ------------------------------------------------------------
-export const PPconfigure =  (id, sec, redir) => {
+export const PPconfigure =  (id, sec, redir, env) => {
   clientId = id;
   clientSecret = sec;
   redirectURI = redir;
+  environment = env;
   authStatus = false;
 
   getAuthPrefs()
@@ -99,6 +101,8 @@ export const PPconfigure =  (id, sec, redir) => {
                 });
                 setAuthPrefs()
             });
+          } else {
+            if(userListener) userListener(ppsdkUserParms, authStatus);
           }
         });
   });
@@ -195,8 +199,8 @@ const tokensNotExpired = () => {
 const logout = () => {
   ppsdkAuthParms.accessToken = null;
   ppsdkAuthParms.refreshToken = null;
-  _invalidateAuthPrefs();
-  _invalidateUserPrefs();
+  invalidateAuthPrefs();
+  invalidateUserPrefs();
 };
 
 const AnonymousLogin = () => {
@@ -210,6 +214,7 @@ const stringFromDateTime = (dateTime) => {
 const getImAnonymousStatus = () => {
   return false;
 };
+
 
 const getAuthPrefs = async () => {
     await AsyncStorage.getItem('@ppsdkAuthParms', (err, result) => {
@@ -268,6 +273,7 @@ const _invalidateUserPrefs = () => {
   ppsdkUserParms.handle = "unknown";
   setUserPrefs();
 };
+
 
 const PPManager = {
 };

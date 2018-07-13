@@ -2,17 +2,18 @@
  * APIURLS - contains urls for api calls
  */
 
-import env, { DEBUG, STAGING, RELEASE } from './env';
+ var env = "SANDBOX";
+ export const configureEnv = (e) => { env = e; }
 
-export const base = (slug) => {
-  switch (env) {
-    case DEBUG:
-        default:
-      return `https://sandbox.iokids.net/${slug}`;
-    case RELEASE:
-      return `https://goplayportal.com/${slug}`;
-  }
-};
+ export const base = (slug) => {
+   switch (env) {
+     case "SANDBOX":
+         default:
+       return `https://sandbox.iokids.net/${slug}`;
+     case "PRODUCTION":
+       return `https://goplayportal.com/${slug}`;
+   }
+ };
 
 const urlScheme = () => {
   return 'playportal://';
