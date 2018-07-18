@@ -29,17 +29,42 @@
 	* The values generated will be used in 'Step 4'.
   </br>
 
-* ### <b>Step 4:</b> Install playPORTAL npm package
+* ### <b>Step 4:</b> Create a react-native app (if app doesn't exist)
+```
+$ react-native init yourapp
+```
+This will walk you through creating a new React Native project in /Users/x/software/ReactNative/yourapp
+Installing react-native...
 
-  * From the root of your project, install the playPORTAL SDK with:
++ react-native@0.56.0
+added 766 packages from 361 contributors and audited 15204 packages in 21.763s
+found 0 vulnerabilities
 
-  ```
-  $ npm i playportal
-  ```
+Setting up new React Native app in /Users/x/software/ReactNative/yourapp
+Installing React...
++ react@16.4.1
+added 1 package and audited 15228 packages in 4.435s
+found 0 vulnerabilities
 
-* ### <b>Step 5:</b> Add Client ID and Client Secret to App
+Installing Jest...
+npm WARN deprecated istanbul-lib-hook@1.2.1: 1.2.0 should have been a major version bump
++ babel-preset-react-native@5.0.2
++ babel-jest@23.4.0
++ jest@23.4.1
++ react-test-renderer@16.4.1
+added 306 packages from 284 contributors, updated 1 package and audited 39601 packages in 12.27s
+found 0 vulnerabilities
+
+
+* ### <b>Step 5:</b> Install the playportal SDK
+```
+$ npm i playportal
+```
+
+
+* ### <b>Step 6:</b> Add Client ID and Client Secret to App
   * Add the following to the "include" section of your App.js (or other main application module).
-    * ###### For the purpose of running this HelloWorld app, these keys are in plain text in the file, but for a production app you must store them securely - they uniquely identify your app and grant the permissions to your app as defined in the playPORTAL Partner Dashboard.
+    * ###### For the purpose of running yourapp, these keys are in plain text in the file, but for a production app you must store them securely - they uniquely identify your app and grant the permissions to your app as defined in the playPORTAL Partner Dashboard.
 
   * #### React-Native Example
     ```
@@ -52,7 +77,7 @@
       PPaddUserListener,  
       PPreadData,
       PPwriteData,
-      PPgetFriends 
+      PPgetFriends
     } from './node_modules/playPORTAL/ppsdk/src/PPManager';
 
 
@@ -62,9 +87,11 @@
     const cid = '<YOUR CLIENT_ID HERE>';
     const cse = '<YOUR CLIENT_SECRET HERE>';
     const redir = '<YOUR REDIRECT_URI HERE>';
+```
 
-    // In your app startup
+   And, in your app startup, add the initialization to the componentDidMount method:
 
+```		
     export default class App extends React.Component {
       state = {
         response: {},
@@ -81,11 +108,68 @@
     }
     ```
 
+* ### <b>Step 6:</b> Configure your app for SSO (requires URL redirects aka deep linking)
+
+* #### iOS
+In the AppDelegate.m add the import for React-Native deep linking:
+```
+  #import <React/RCTLinkingManager.h>
+```
+
+In the AppDelegate.m add the following lines (above the `@end`):
+```
+  - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+    sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+    {
+      return [RCTLinkingManager application:application openURL:url
+			     sourceApplication:sourceApplication annotation:annotation];
+    }        
+```
+
+* #### Android
+
+* ### <b>Step 7:</b> Install the deep linking package for React-Native
+```
+$ npm install react-native-deep-linking
++ react-native-deep-linking@2.1.0
+added 1 package from 1 contributor and audited 39661 packages in 5.752s
+found 0 vulnerabilities
+```
+
+* ### <b>Step 8:</b> Relink the react-native app
+```
+$ react-native link
+```
 
 
-* ## <b>Step 6:</b> Run your app.
+* ### <b>Step 9:</b> Running your app
+```
+$ cd /Users/x/software/ReactNative/yourapp
+```
 
-* ## <b>Step 7:</b> Generate "Sandbox" users for testing.
+* ##### To run your app on iOS
+```
+$ react-native run-ios
+```
+   - or -
+
+```	 
+   Open ios/yourapp.xcodeproj in Xcode
+   Hit the Run button
+```
+
+* ##### To run your app on Android
+```
+$ cd /Users/x/software/ReactNative/yourapp
+```
+NB: Have an Android emulator running (quickest way to get started), or a device connected
+
+```
+$ react-native run-android
+```
+
+
+* ## <b>Step 10:</b> Generate "Sandbox" users for testing.
   * In the [playPORTAL Partner Dashboard](https://partner.playportal.io), click on "Sandbox" in the left navigation pane.
   * Here you can generate different types of "Sandbox Users" so you can log in to your app and try it out.
   * "Sandbox Users" can be of type "Adult", "Parent", or "Child".
