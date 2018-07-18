@@ -29,7 +29,6 @@
   "bundleDependencies": false,
   "dependencies": {
     "axios": "^0.18.0",
-    "semaphore": "^1.1.0"
   },
   "deprecated": false,
   "description": "Javascript SDK for utilizing playPORTAL service.",
@@ -42,7 +41,7 @@
     "games",
     "toys"
   ],
-  "license": "ISC",
+  "license": "Apache-2.0",
   "main": "index.js",
   "maintainers": [
     {
