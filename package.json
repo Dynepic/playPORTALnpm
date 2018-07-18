@@ -28,7 +28,7 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.0"
   },
   "deprecated": false,
   "description": "Javascript SDK for utilizing playPORTAL service.",
