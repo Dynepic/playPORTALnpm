@@ -1,6 +1,6 @@
-'use strict';
+//'use strict';
+import { AsyncStorage} from 'react-native';
 import axios from 'axios';
-import semaphore from 'semaphore';
 
 const PPUser = require('./PPUserService');
 const PPData = require('./PPDataService');
@@ -8,17 +8,19 @@ const APIURLs = require('../utils/APIURLs');
 const withAccessToken = require('../utils/request');
 var async = require('async');
 var Promise = require('promise');
-var refreshInProgress = require('semaphore')(1);
+
+var nvstore;
 
 var clientId="";
 var clientSecret="";
 var redirectURI="";
 var environment="SANDBOX";
 var authStatus = false;
-let setImAnonymousStatus = false;
-let friends = [];
-var ppsdkUserParms={};
-var ppsdkAuthParms={};
+var setImAnonymousStatus = false;
+var friends = [];
+var ppsdkUserParms = {};
+var ppsdkAuthParms = {};
+
 const nonce = "beans";
 const Authbase = APIURLs.base(`oauth`);
 const Authlogout = Authbase + '/logout';
@@ -47,10 +49,7 @@ const _bucketName = (isPrivate) => {
 // extern methods
 export const PPwriteData = (k, v, isPrivate) =>  {  return PPData.writeBucket(_bucketName(isPrivate), k, v);}
 export const PPreadData = (k, isPrivate) =>  {  return PPData.readBucket(_bucketName(isPrivate), k); }
-export const PPgetAccessToken = () => {
-  console.log("getAccessToken:", ppsdkAuthParms.accessToken);
-  return ppsdkAuthParms.accessToken;
-}
+export const PPgetAccessToken = () => {  return ppsdkAuthParms.accessToken; }
 export const PPgetRefreshToken = () => { return ppsdkAuthParms.refreshToken; }
 export const PPgetEnvironment = () => { return environment; }
 // ------------------------------------------------------------
@@ -65,22 +64,20 @@ export const PPconfigure =  (id, sec, redir, env) => {
   redirectURI = redir;
   environment = env;
   authStatus = false;
+  ppsdkAuthParms = {accessToken: "unknown", refreshToken: "unknown", expirationTime: Date.now()  },
 
   getAuthPrefs()
   .then((response) => {
     refreshAccessToken((parms) => {
-          console.log("parms:", parms);
-          console.log("ppsdkAuthParms:", ppsdkAuthParms);
           if(parms.refreshToken != "") {
             PPUser.getProfile()
             .then((response) => {
                 ppsdkUserParms = response;
-                console.log("me:", ppsdkUserParms);
                 if(userListener) userListener(response, authStatus);
                 const bu = [];
                 PPData.createBucket(_bucketName(true), bu, true)
                 .then((response) => {
-                  console.log("join global app data success: " + response);
+                  // optionally return contents
                 })
                 .catch((error) => {
                   console.error("join global app data error: " + error);
@@ -89,7 +86,7 @@ export const PPconfigure =  (id, sec, redir, env) => {
                 bu.push(ppsdkUserParms.userId);
                 PPData.createBucket(_bucketName(false), bu, false)
                 .then((response) => {
-                  console.log("create private data store success: " + response);
+                  // optionally return contents
                 })
                 .catch((error) => {
                   console.error("create private data store error: " + error);
@@ -99,13 +96,13 @@ export const PPconfigure =  (id, sec, redir, env) => {
                 .then(() => {
                   if(userListener) userListener(response, authStatus);
                 });
-                setAuthPrefs()
+                setAuthPrefs(ppsdkAuthParms)
             });
           } else {
             if(userListener) userListener(ppsdkUserParms, authStatus);
           }
         });
-  });
+      });
 }
 
 export const PPgetLoginRoute = () => {
@@ -114,7 +111,6 @@ export const PPgetLoginRoute = () => {
 export const PPaddUserListener = (u) => { userListener = u; };
 
 export const PPhandleOpenURL = (navigation) => {
-  console.log("PPhandleOpenURL:");
   setImAnonymousStatus = false;
   authStatus = true;
 
@@ -131,12 +127,11 @@ export const PPhandleOpenURL = (navigation) => {
   PPUser.getProfile()
   .then((response) => {
       ppsdkUserParms = response;
-      console.log("me:", ppsdkUserParms);
       if(userListener) userListener(response, authStatus);
       const bu = [];
       PPData.createBucket(_bucketName(true), bu, true)
       .then((response) => {
-        console.log("join global app data success: " + response);
+        // optionally return existing contents
       })
       .catch((error) => {
         console.error("join global app data error: " + error);
@@ -145,7 +140,7 @@ export const PPhandleOpenURL = (navigation) => {
       bu.push(ppsdkUserParms.userId);
       PPData.createBucket(_bucketName(false), bu, false)
       .then((response) => {
-        console.log("create private data store success: " + response);
+        // optionally return existing contents
       })
       .catch((error) => {
         console.error("create private data store error: " + error);
@@ -156,7 +151,7 @@ export const PPhandleOpenURL = (navigation) => {
         if(userListener) userListener(response, authStatus);
       });
   });
-    setAuthPrefs(); // save server tokens, etc.
+    setAuthPrefs(ppsdkAuthParms); // save server tokens, etc.
 };
 
 export const PPgetFriends = () => {
@@ -164,7 +159,6 @@ export const PPgetFriends = () => {
 };
 
 const refreshAccessToken = async (cb) => {
-  console.log("refreshAccessToken: ");
   await axios({
       method: 'post',
       url: RefreshToken,
@@ -191,30 +185,16 @@ const refreshAccessToken = async (cb) => {
     })
 };
 
-const tokensNotExpired = () => {
-  const currentDT = new Date();
-  return currentDT < ppsdkAuthParms.expirationTime;
-};
-
 const logout = () => {
-  ppsdkAuthParms.accessToken = null;
-  ppsdkAuthParms.refreshToken = null;
-  invalidateAuthPrefs();
-  invalidateUserPrefs();
+  ppsdkAuthParms.accessToken = "";
+  ppsdkAuthParms.refreshToken = "";
+  ppsdkUserParms.userId = "";
+  setAuthPrefs();
+  setUserPrefs();
 };
 
 const AnonymousLogin = () => {
 };
-const dateTimeFromString = (datestring) => {
-  return Date.parse(datestring);
-};
-const stringFromDateTime = (dateTime) => {
-  return dateTime.toString();
-};
-const getImAnonymousStatus = () => {
-  return false;
-};
-
 
 const getAuthPrefs = async () => {
     await AsyncStorage.getItem('@ppsdkAuthParms', (err, result) => {
@@ -225,26 +205,21 @@ const getAuthPrefs = async () => {
         ppsdkAuthParms.expirationTime = Date();
         reject("Error: getAuthPrefs - " + err);
       } else {
-        ppsdkAuthParms = JSON.parse(result);
-        console.log("getAuthPrefs:", JSON.stringify(ppsdkAuthParms));
+        if(result) {
+          ppsdkAuthParms = JSON.parse(result);
+        }
         return(ppsdkAuthParms);
       }
     });
 //  });
 };
+
 const setAuthPrefs = async () => {
    AsyncStorage.setItem('@ppsdkAuthParms', JSON.stringify(ppsdkAuthParms), (err) => {
       if(err) console.error(err);
       return true;
     });
 };
-const invalidateAuthPrefs = () => {
-  console.log("invalidating AuthPrefs :", "");
-  ppsdkAuthParms.refreshToken = "unknown";
-  ppsdkAuthParms.accessToken = "unknown";
-  return setAuthPrefs();
-};
-
 
 const getUserPrefs = async () => {
    AsyncStorage.getItem('@ppsdkUserParms', (err, result) => {
@@ -253,27 +228,19 @@ const getUserPrefs = async () => {
       ppsdkUserParms.userId = "unknown";
       ppsdkUserParms.handle = "unknown";
     } else {
-      ppsdkUserParms = JSON.parse(result);
+      if(result) {
+        ppsdkUserParms = JSON.parse(result);
+      }
       return ppsdkUserParms
     }
   });
-  console.log("getUserPrefs userId:", ppsdkUserParms.userId);
 };
 
 const setUserPrefs = async () => {
    AsyncStorage.setItem('@ppsdkUserParms', JSON.stringify(ppsdkUserParms), (err) => {
     if(err) console.error(err);
   });
-  console.log("setUserPrefs userId:" + ppsdkUserParms.userId + " handle:" + ppsdkUserParms.handle);
 };
-
-const _invalidateUserPrefs = () => {
-  console.log("invalidating UserPrefs :", "");
-  ppsdkUserParms.userId = "unknown";
-  ppsdkUserParms.handle = "unknown";
-  setUserPrefs();
-};
-
 
 const PPManager = {
 };

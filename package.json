@@ -1,18 +1,38 @@
 {
-  "name": "playportal",
-  "version": "0.0.4",
-  "private": false,
-  "scripts": {
-    "tests": "node test.js"
+  "_from": "playportal@0.0.2",
+  "_id": "playportal@0.0.2",
+  "_inBundle": false,
+  "_integrity": "sha512-dgtg34tXMAK0WXl8Fp21DvFVa2mW/OC54uJcQy6mMdoRcy9Qd1A7g9MVjSyBbiy5zdOBUFK5+/HtdcTSVg8TxQ==",
+  "_location": "/playportal",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "playportal@0.0.2",
+    "name": "playportal",
+    "escapedName": "playportal",
+    "rawSpec": "0.0.2",
+    "saveSpec": null,
+    "fetchSpec": "0.0.2"
   },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/playportal/-/playportal-0.0.2.tgz",
+  "_shasum": "20293c8c291b5fc3380377d9a6290a1d3e417bbc",
+  "_spec": "playportal@0.0.2",
+  "_where": "/Users/g11baldwin/software/ReactNative/IncTestNative",
+  "bugs": {
+    "url": "https://github.com/Dynepic/playPORTALnpm/issues"
+  },
+  "bundleDependencies": false,
   "dependencies": {
     "axios": "^0.18.0",
     "semaphore": "^1.1.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Dynepic/playPORTALnpm.git"
-  },
+  "deprecated": false,
+  "description": "Javascript SDK for utilizing playPORTAL service.",
   "homepage": "https://github.com/Dynepic/playPORTALnpm.git#README",
   "keywords": [
     "COPPA",
@@ -22,8 +42,8 @@
     "games",
     "toys"
   ],
+  "license": "ISC",
   "main": "index.js",
-  "description": "Javascript SDK for utilizing playPORTAL service.",
   "maintainers": [
     {
       "name": "Gary Baldwin",
@@ -38,5 +58,14 @@
       "email": "areiter@netrist.com"
     }
   ],
-  "license": "ISC"
+  "name": "playportal",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dynepic/playPORTALnpm.git"
+  },
+  "scripts": {
+    "tests": "node test.js"
+  },
+  "version": "0.0.2"
 }
