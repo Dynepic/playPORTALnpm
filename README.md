@@ -82,15 +82,6 @@
     ```
 
 
-  * #### Node.js Example
-    ```
-    // -------------------------------------------------------
-    // Node.js app
-    // -------------------------------------------------------
-    // In your app
-    var PPManager = require('./node_modules/playPORTAL/ppsdk/src/PPManager');
-
-    ```
 
 * ## <b>Step 6:</b> Run your app.
 
