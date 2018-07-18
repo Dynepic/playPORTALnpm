@@ -67,5 +67,5 @@
   "scripts": {
     "tests": "node test.js"
   },
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
