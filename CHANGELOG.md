@@ -4,9 +4,9 @@ All notable changes to the playPORTAL npm project will be documented in this fil
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](unreleased)
+## [Unreleased](#unreleased)
 
-## [0.1.4] - 2018-07-19
+## 0.1.4 - 2018-07-19
 ### Added
 - New instructions for setting up your first app.
  
@@ -45,7 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 ### Unreleased
-[0.1.0]: https://github.com/Dynepic/playPORTALnpm/v0.1.0...HEAD
-[0.0.1]: https://github.com/Dynepic/playPORTALnpm/v0.0.1...HEAD
+#### 0.1.0
+#### 0.0.1
 
 
