@@ -33,7 +33,7 @@
 ```
 $ react-native init yourapp
 ```
-This will walk you through creating a new React Native project in /Users/x/software/ReactNative/yourapp
+This step will walk you through creating a new React Native project in /Users/x/software/ReactNative/yourapp
 Installing react-native...
 
 + react-native@0.56.0
@@ -62,7 +62,7 @@ $ npm i playportal
 ```
 
 The playportal package utilizes semver for release numbering. Our recommendation is to stay within a major release to avoid breaking changes. This can be achieved via your package.json by defining playportal (in your dependencies list) as:
-    "playportal": "^0.1.3"
+    "playportal": "^0.1.4"
 
 
 
