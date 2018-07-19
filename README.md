@@ -215,7 +215,9 @@ The PPconfigure method is used to initiate this process. In conjunction with you
 - if user is currently un-authorized, log a user in via SSO, and then allow full use of the playPORTAL SDK
 - if user is currently authorized, silently log in (no user interaction) and then allow full use of the playPORTAL SDK
 
-- First, define a UserListener function that will be invoked on change of Auth status. 
+
+To support this process, first define a UserListener function that will be invoked on change of Auth status. 
+
 ```
   export const UserListener = (u, authUpdate) => {
 	console.log("UserListener invoked on user:", JSON.stringify(userprofile) +" auth status:"+ authUpdate);
@@ -224,7 +226,7 @@ The PPconfigure method is used to initiate this process. In conjunction with you
 	    userprofile = u; // save user profile for display, etc
 	} else {
 	   // display modal with login button or redirect to SSO login
-	   ssoUrl = PPgetLoginRoute(); // get URL for SSO login
+	   ssoUrl = PPgetLoginRoute(); // URL for SSO login is here
 
 
 	}
@@ -232,9 +234,9 @@ The PPconfigure method is used to initiate this process. In conjunction with you
 ```
 
 
-Then configure the SDK (see parameters from above desciption). This starts the process and the UserListener will be invoked with auth status.
+Then, configure the SDK. The parameters are as described previously. This call does the configuration and starts the auth process. The UserListener will be invoked with auth status.
 ```
-	PPconfigure(cid, cse, redir, [SANDBOX | PRODUCTION]);  // last parm, environment is optional. defaults to SANDBOX
+	PPconfigure(cid, cse, redir, ["SANDBOX" | "PRODUCTION"]);  // last parm, environment is optional. defaults to "SANDBOX"
 ```
 --
 
@@ -249,11 +251,13 @@ This method will return a list of this user's friends (with profile for each fri
 
 	PPgetFriends()
 	parms:
+	returns:
+	    	A promise that will resolve on success to the list of this user's friends, and on error, to the error status.
 
 ```
   PPgetFriends()
     .then((response) => {
-      console.log("friends:", response);
+      console.log("friends:", JSON.stringify(response));
     })
     .catch((error) => {
       console.error(error);
@@ -278,7 +282,7 @@ This method will write a KV pair to the referenced data store. If a key is used 
 ```
 	PPwriteData('mybucket', somekey, somevalue)
 	.then((response) => {
-	      console.log("KV written K:", somekey + " V:" + somevalue);
+	      console.log("KV written K:", somekey + " V:" + JSON.stingify(somevalue));
 	 })
 	.catch((error) => {
 	     console.error(error);
@@ -315,7 +319,7 @@ The user may also create additional data stores as necessary. That is done as:
 	parms:
 		bucketname - the name of the data store (string)
 		users - CSV array of user ids
-		ispublic - non-zero / non-null creates public bucket
+		ispublic - non-zero / non-null creates a public bucket
 
 	returns:
 	    	A promise that will resolve on success to a response containing the newly created bucket's metadata and on failure an error indicating the error status.
