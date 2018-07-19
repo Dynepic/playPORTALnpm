@@ -61,6 +61,11 @@ found 0 vulnerabilities
 $ npm i playportal
 ```
 
+The playportal package utilizes semver for release numbering. Our recommendation is to stay within a major release to avoid breaking changes. This can be achieved via your package.json by defining playportal (in your dependencies list) as:
+    "playportal": "^0.1.3"
+
+
+
 
 * ## <b>Step 6:</b> Add Client ID and Client Secret to App
   * Add the following to the "include" section of your App.js (or other main application module).
