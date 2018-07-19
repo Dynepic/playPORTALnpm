@@ -245,6 +245,12 @@ The SDK provides methods for accessing a user's profile and a user's friends pro
 The user's profile is returned to the UserListener, when the user is "auth'd". The user profile contains the following properties:
 
 
+* ###### Get Friends
+This method will return a list of this user's friends (with profile for each friend).
+
+	PPgetFriends()
+	parms:
+
 ```
   PPgetFriends()
     .then((response) => {
@@ -256,16 +262,20 @@ The user's profile is returned to the UserListener, when the user is "auth'd". T
 ```
 
 ##### Data
-The SDK provides a simple Key Value (KV) storage. On login, there are two data stores opened / created for this user. There is a private data store for this users exclusive use, and there is a global data store this user shares with all other users of this same app. If a user logs out and logs in at a later date, the data in the private data store will be as left upon logout. The contents of the global data store will most likely have changed based on write operation of other users.
+The SDK provides a simple Key Value (KV) store. On login, two data stores are opened / created for this user. There is a private data store for this users exclusive use, and a global data store this user shares with all other users of this same app. If a user logs out and logs in at a later date, the data in the private data store will be as left upon logout. The contents of the global data store will most likely have changed based on write operation of other users.
 
+
+* ###### Write Data
+This method will write a KV pair to the referenced data store. If a key is used more than once for writing, the 	value associated with the key will be updated and reflect the most recent write operation. 
 
 	PPwriteData(bucketname, key, value)
-		string bucketname - the name of the data store
-		string key - a key to associate with this data
-    		string value - value to store
-
-    	This method will write a KV pair to the referenced data store. If a key is used more than once for writing, the 	value associated with the key will be updated and reflect the most recent write operation. Returns a promise 		that will indicate status of the completed/errored operatoin.
-
+	parms:
+		bucketname - the name of the data store (string)
+		key - a key to associate with this data (string)
+		value - value to store (JSON.stringify'able JSON, e.g. objects w/o functions)
+	returns:
+	    	A promise that will resolve to indicate the success/error status of the write operation.
+		
 ```
 	PPwriteData('mybucket', somekey, somevalue)
 	.then((response) => {
@@ -277,18 +287,49 @@ The SDK provides a simple Key Value (KV) storage. On login, there are two data s
 ```	
 	
 
-         public void PPreadData(bucketname, key);
- 		string bucketname - the name of the data store
-		string key - a key to associate with this data
+* ######  Read data 
+This method will read a value from the bucket named <i>bucketname</i> for the Key <i>key</I>. It returns a promise 	that will either contain JSON data (on success) or an error.
+
+	PPreadData(bucket, key)
+	parms:
+		bucketname - the name of the data store (string)
+		key - the key to read data from (string)
 			
-	This method will read a value from the bucket named: bucketname for the Key "key". It returns a promised that will 		either contain the data (on success) or an error.
+	returns:
+	    	A promise that will resolve on success to a response containing the profiles of the user's friends and on failure an error indicating the error status.
 
 ```
 	PPreadData('mybucket', somekey)
 	.then((response) => {
-	      console.log("KV read K:", somekey + " V:" + response);
+	      console.log("KV read K:", somekey + " V:" + JSON.stringify(response));
 	 })
 	.catch((error) => {
 	     console.error(error);
 	 })
 ```
+
+
+* ######  Create bucket
+The user may also create additional data stores as necessary. That is done as:
+
+	PPcreateBucket(bucketname, users[], ispublic)
+	parms:
+		bucketname - the name of the data store (string)
+		users - CSV array of user ids
+		ispublic - non-zero / non-null creates public bucket
+
+	returns:
+	    	A promise that will resolve on success to a response containing the newly created bucket's metadata and on failure an error indicating the error status.
+
+
+```
+	PPcreateBucket(newbucket, users[], ispublic)
+	.then((response) => {
+	      console.log("new bucket created: ", newbucket);
+	 })
+	.catch((error) => {
+	     console.error(error);
+	 })
+```
+
+For subsequent reads/writes to this new bucket, the same name should be utilized as the bucketname, e.g. <i>newbucket</i>.
