@@ -259,35 +259,36 @@ The user's profile is returned to the UserListener, when the user is "auth'd". T
 The SDK provides a simple Key Value (KV) storage. On login, there are two data stores opened / created for this user. There is a private data store for this users exclusive use, and there is a global data store this user shares with all other users of this same app. If a user logs out and logs in at a later date, the data in the private data store will be as left upon logout. The contents of the global data store will most likely have changed based on write operation of other users.
 
 
-	    PPwriteData(bucketname, key, value);
-	    	string bucketname - the name of the data store
+	PPwriteData(bucketname, key, value)
+		string bucketname - the name of the data store
 		string key - a key to associate with this data
     		string value - value to store
 
-    	This method will write a KV pair to the referenced data store. If a key is used more than once for writing, the 		value associated with the key will be updated and reflect the most recent write operation.
+    	This method will write a KV pair to the referenced data store. If a key is used more than once for writing, the 	value associated with the key will be updated and reflect the most recent write operation. Returns a promise 		that will indicate status of the completed/errored operatoin.
 
+```
+	PPwriteData('mybucket', somekey, somevalue)
+	.then((response) => {
+	      console.log("KV written K:", somekey + " V:" + somevalue);
+	 })
+	.catch((error) => {
+	     console.error(error);
+	 })
+```	
+	
 
+         public void PPreadData(bucketname, key);
+ 		string bucketname - the name of the data store
+		string key - a key to associate with this data
+			
+	This method will read a value from the bucket named: bucketname for the Key "key". It returns a promised that will 		either contain the data (on success) or an error.
 
-	    void writeGlobalData(string key, string value);
-
-   			string key - a key to associate with this data
-    		string value - value to store
-
-    	This method will write a KV pair to this application's global data store. Again, if a key is used more than once (by any user), the value associated with the key will be updated.
-
---
-
-         public void PPreadData(string key, <string>callback);
-
-			string key - a key to read from.
-			callback - C# method that takes a string parameter containing the returned value
-
-			The callback method is defined as:
-						
-			private delegate void ReadDataDelegate(string value);
-			[AOT.MonoPInvokeCallback(typeof(ReadDataDelegate))]  
-			protected static void ReadCallback(string value)
-			{
-				// do something with the value
-			}
-
+```
+	PPreadData('mybucket', somekey)
+	.then((response) => {
+	      console.log("KV read K:", somekey + " V:" + response);
+	 })
+	.catch((error) => {
+	     console.error(error);
+	 })
+```
