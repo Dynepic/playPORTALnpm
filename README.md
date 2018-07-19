@@ -204,10 +204,9 @@ $ react-native run-android
   * playPORTAL Hello World For NodeJS (Coming Soon!)
 
 
-* ### Using the playPORTAL service
+----
 
-
-#### Making calls into the PPSDK plugin.
+* ### Making calls into the PPSDK plugin.
 
 ##### SSO Login / Authentication
 The SSO login validates a single user (player) against the playPORTAL. Players may log in with a valid playPORTAL set of credentials. If they've previously logged in, then they can continue to operate as a logged in user. 
