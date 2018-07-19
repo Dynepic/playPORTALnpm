@@ -36,12 +36,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### 0.0.2 - 2018-07-11 . Initial Release
 ##### Added
+
 - Initial version of SDK
 - Core functionality for
--- SSO using playPORTAL Auth gateway
--- Getting User profile
--- Getting Friends profiles
--- Reading/Writing data in Lightning db
+  -- SSO using playPORTAL Auth gateway
+  -- Getting User profile
+  -- Getting Friends profiles
+  -- Reading/Writing data in Lightning db
 
 ----
 
