@@ -6,16 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ----
 
-## 0.1.4 - 2018-07-19
-### Added
+### 0.1.4 - 2018-07-19
+##### Added
 - New instructions for setting up your first app.
  
-### Changed
+##### Changed
 - Brought CHANGELOG up to date
 
 
-## 0.1.3 - 2018-07-18
-### Changed
+### 0.1.3 - 2018-07-18
+##### Changed
 - Fixed bugs in core SDK
 
 
@@ -24,18 +24,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improved README
 
 
-## 0.1.1 - 2018-07-18
-### Changed
+### 0.1.1 - 2018-07-18
+##### Changed
 - Change license from ISC to APACHE-2.0
 
 
-## 0.0.3 - 2018-07-12
-### Changed
+### 0.0.3 - 2018-07-12
+##### Changed
 - Fixed bug when returning user profile.
 
 
-## 0.0.2 - 2018-07-11 . Initial Release
-### Added
+### 0.0.2 - 2018-07-11 . Initial Release
+##### Added
 - Initial version of SDK
 - Core functionality for
 -- SSO using playPORTAL Auth gateway
@@ -45,8 +45,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ----
 
-## Unreleased
-#### 0.1.0
-#### 0.0.1
+### Unreleased
+##### 0.1.0
+##### 0.0.1
 
 
