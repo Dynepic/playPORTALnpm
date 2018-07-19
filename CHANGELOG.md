@@ -13,27 +13,31 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Brought CHANGELOG up to date
 
 
-## [0.1.3] - 2018-07-18
+## 0.1.3 - 2018-07-18
 ### Changed
 - Fixed bugs in core SDK
 
-## [0.1.2] - 2018-07-18
+
+## 0.1.2 - 2018-07-18
 ### Changed
 - Improved README
 
-## [0.1.1] - 2018-07-18
+
+## 0.1.1 - 2018-07-18
 ### Changed
 - Change license from ISC to APACHE-2.0
 
-## [0.0.3] - 2018-07-12
-### Added
-- "Why should I care?" section mentioning The Changelog podcast.
 
-## [0.0.2] - 2018-07-11
+## 0.0.3 - 2018-07-12
+### Changed
+- Fixed bug when returning user profile.
+
+
+## 0.0.2 - 2018-07-11 . Initial Release
 ### Added
 - Initial version of SDK
-- Added core functionality for
--- SSO using playPORTAL
+- Core functionality for
+-- SSO using playPORTAL Auth gateway
 -- Getting User profile
 -- Getting Friends profiles
 -- Reading/Writing data in Lightning db
@@ -42,4 +46,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 [0.1.0]: https://github.com/Dynepic/playPORTALnpm/v0.1.0...HEAD
 [0.0.1]: https://github.com/Dynepic/playPORTALnpm/v0.0.1...HEAD
+
 
