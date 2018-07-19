@@ -47,8 +47,10 @@ const _bucketName = (isPrivate) => {
 
 // ---------------------------
 // extern methods
-export const PPwriteData = (k, v, isPrivate) =>  {  return PPData.writeBucket(_bucketName(isPrivate), k, v);}
-export const PPreadData = (k, isPrivate) =>  {  return PPData.readBucket(_bucketName(isPrivate), k); }
+export const PPgetBucketName = (isPrivate) =>  {  return _bucketName(isPrivate);}
+export const PPcreateBucket = (bucketname, users, isPublic) => { return PPD.createBucket(bucketname, users, isPublic);}
+export const PPwriteData = (bucketname, k, v) =>  {  return PPData.writeBucket(bucketname, k, v);}
+export const PPreadData = (bucketname, k) =>  {  return PPData.readBucket(bucketname, k); }
 export const PPgetAccessToken = () => {  return ppsdkAuthParms.accessToken; }
 export const PPgetRefreshToken = () => { return ppsdkAuthParms.refreshToken; }
 export const PPgetEnvironment = () => { return environment; }
