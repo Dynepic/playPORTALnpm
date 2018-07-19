@@ -206,9 +206,9 @@ $ react-native run-android
 
 ----
 
-* ### Making calls into the PPSDK plugin.
+## Making calls into the PPSDK plugin.
 
-##### SSO Login / Authentication
+### SSO Login / Authentication
 The SSO login validates a single user (player) against the playPORTAL. Players may log in with a valid playPORTAL set of credentials. If they've previously logged in, then they can continue to operate as a logged in user. 
 
 The PPconfigure method is used to initiate this process. In conjunction with your UserListener function, the app can either:
@@ -238,13 +238,13 @@ Then configure the SDK (see parameters from above desciption). This starts the p
 ```
 --
 
-##### User / Friends
+### User / Friends
 The SDK provides methods for accessing a user's profile and a user's friends profiles. 
 
 The user's profile is returned to the UserListener, when the user is "auth'd". The user profile contains the following properties:
 
 
-* ###### Get Friends
+* #### Get Friends
 This method will return a list of this user's friends (with profile for each friend).
 
 	PPgetFriends()
@@ -260,11 +260,11 @@ This method will return a list of this user's friends (with profile for each fri
     })
 ```
 
-##### Data
+### Data
 The SDK provides a simple Key Value (KV) store. On login, two data stores are opened / created for this user. There is a private data store for this users exclusive use, and a global data store this user shares with all other users of this same app. If a user logs out and logs in at a later date, the data in the private data store will be as left upon logout. The contents of the global data store will most likely have changed based on write operation of other users.
 
 
-* ###### Write Data
+* #### Write Data
 This method will write a KV pair to the referenced data store. If a key is used more than once for writing, the 	value associated with the key will be updated and reflect the most recent write operation. 
 
 	PPwriteData(bucketname, key, value)
@@ -286,7 +286,7 @@ This method will write a KV pair to the referenced data store. If a key is used 
 ```	
 	
 
-* ######  Read data 
+* ####  Read data 
 This method will read a value from the bucket named <i>bucketname</i> for the Key <i>key</I>. It returns a promise 	that will either contain JSON data (on success) or an error.
 
 	PPreadData(bucket, key)
@@ -308,7 +308,7 @@ This method will read a value from the bucket named <i>bucketname</i> for the Ke
 ```
 
 
-* ######  Create bucket
+* ####  Create bucket
 The user may also create additional data stores as necessary. That is done as:
 
 	PPcreateBucket(bucketname, users[], ispublic)
