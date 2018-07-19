@@ -116,6 +116,25 @@ The playportal package utilizes semver for release numbering. Our recommendation
 * ## <b>Step 7:</b> Configure your app for SSO (requires URL redirects aka deep linking)
 
 * #### iOS
+In the apps Info.plist add the following lines (either from Xcode or editing the file):
+
+```
+	<key>CFBundleURLTypes</key>
+	<array>
+	  <dict>
+	    <key>CFBundleTypeRole</key>
+	    <string>Editor</string>
+	    <key>CFBundleURLName</key>
+	    <string>helloworld</string>
+	    <key>CFBundleURLSchemes</key>
+	    <array>
+	      <string>helloworld</string>
+	      </array>
+	    </dict>
+	  </array>
+```	  
+
+
 In the AppDelegate.m add the import for React-Native deep linking:
 ```
   #import <React/RCTLinkingManager.h>
