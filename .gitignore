@@ -57,3 +57,4 @@ buck-out/
 *.jsbundle
 LICENSE~
 /package.json~
+*.md~
