@@ -202,3 +202,92 @@ $ react-native run-android
 * ### For futher information run any of the playPORTAL Hello World Apps that use the playPORTAL JavaScript SDK.
   * playPORTAL Hello World For React Native (Coming Soon!)
   * playPORTAL Hello World For NodeJS (Coming Soon!)
+
+
+* ### Using the playPORTAL service
+
+
+#### Making calls into the PPSDK plugin.
+
+##### SSO Login / Authentication
+The SSO login validates a single user (player) against the playPORTAL. Players may log in with a valid playPORTAL set of credentials. If they've previously logged in, then they can continue to operate as a logged in user. 
+
+The PPconfigure method is used to initiate this process. In conjunction with your UserListener function, the app can either:
+- if user is currently un-authorized, log a user in via SSO, and then allow full use of the playPORTAL SDK
+- if user is currently authorized, silently log in (no user interaction) and then allow full use of the playPORTAL SDK
+
+- First, define a UserListener function that will be invoked on change of Auth status. 
+```
+  export const UserListener = (u, authUpdate) => {
+	console.log("UserListener invoked on user:", JSON.stringify(userprofile) +" auth status:"+ authUpdate);
+	authenticated = authUpdate;
+	if(authenticated == true) {
+	    userprofile = u; // save user profile for display, etc
+	} else {
+	   // display modal with login button or redirect to SSO login
+	   ssoUrl = PPgetLoginRoute(); // get URL for SSO login
+
+
+	}
+  }
+```
+
+
+Then configure the SDK (see parameters from above desciption). This starts the process and the UserListener will be invoked with auth status.
+```
+	PPconfigure(cid, cse, redir, [SANDBOX | PRODUCTION]);  // last parm, environment is optional. defaults to SANDBOX
+```
+--
+
+##### User / Friends
+The SDK provides methods for accessing a user's profile and a user's friends profiles. 
+
+The user's profile is returned to the UserListener, when the user is "auth'd". The user profile contains the following properties:
+
+
+```
+  PPgetFriends()
+    .then((response) => {
+      console.log("friends:", response);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+```
+
+##### Data
+The SDK provides a simple Key Value (KV) storage. On login, there are two data stores opened / created for this user. There is a private data store for this users exclusive use, and there is a global data store this user shares with all other users of this same app. If a user logs out and logs in at a later date, the data in the private data store will be as left upon logout. The contents of the global data store will most likely have changed based on write operation of other users.
+
+
+	    PPwriteData(bucketname, key, value);
+	    	string bucketname - the name of the data store
+		string key - a key to associate with this data
+    		string value - value to store
+
+    	This method will write a KV pair to the referenced data store. If a key is used more than once for writing, the 		value associated with the key will be updated and reflect the most recent write operation.
+
+
+
+	    void writeGlobalData(string key, string value);
+
+   			string key - a key to associate with this data
+    		string value - value to store
+
+    	This method will write a KV pair to this application's global data store. Again, if a key is used more than once (by any user), the value associated with the key will be updated.
+
+--
+
+         public void PPreadData(string key, <string>callback);
+
+			string key - a key to read from.
+			callback - C# method that takes a string parameter containing the returned value
+
+			The callback method is defined as:
+						
+			private delegate void ReadDataDelegate(string value);
+			[AOT.MonoPInvokeCallback(typeof(ReadDataDelegate))]  
+			protected static void ReadCallback(string value)
+			{
+				// do something with the value
+			}
+
