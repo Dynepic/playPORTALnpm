@@ -24,7 +24,7 @@ const _bucketName = (isPrivate) => {
 }
 // ---------------------------
 // extern methods
-export const PPgetBucketName = (isPrivate) =>  {  return _bucketName(isPrivate);}
+export const PPgetMyBucketName = (isPrivate) =>  {  return _bucketName(isPrivate);}
 export const PPcreateBucket = (bucketname, users, isPublic) => { return PPD.createBucket(bucketname, users, isPublic);}
 export const PPwriteData = (bucketname, k, v) =>  {  return PPData.writeBucket(bucketname, k, v);}
 export const PPreadData = (bucketname, k) =>  {  return PPData.readBucket(bucketname, k); }
