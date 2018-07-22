@@ -252,14 +252,15 @@ This method will write a KV pair to the referenced data store. If a key is used 
 
 	PPwriteData(bucketname, key, value)
 	parms:
-		bucketname - the name of the data store (string)
+		bucketname - the name of the data store (string). To use one of the pre-defined buckets (one private, one app global) this method can be called with PPgetMyBucketName(p) where p is boolean (true = my private, false = app global)
 		key - a key to associate with this data (string)
 		value - value to store (JSON.stringify'able JSON, e.g. objects w/o functions)
 	returns:
 	    	A promise that will resolve to indicate the success/error status of the write operation.
 
+				<b>Ex:</b> to write { somekey : somevalue } to your application private data store:
 ```
-	PPwriteData('mybucket', somekey, somevalue)
+	PPwriteData(PPgetMyBucketName(true), somekey, somevalue)
 	.then((response) => {
 	      console.log("KV written K:", somekey + " V:" + JSON.stingify(somevalue));
 	 })
@@ -274,14 +275,16 @@ This method will read a value from the bucket named <i>bucketname</i> for the Ke
 
 	PPreadData(bucket, key)
 	parms:
-		bucketname - the name of the data store (string)
+		bucketname - the name of the data store (string) or use the PPgetMyBucketName(boolean)
 		key - the key to read data from (string)
 
 	returns:
 	    	A promise that will resolve on success to a response containing the profiles of the user's friends and on failure an error indicating the error status.
 
+
+				<b>Ex:</b> to read { somekey } from your application global app data store:
 ```
-	PPreadData('mybucket', somekey)
+	PPreadData(PPgetMyBucketName(false), somekey)
 	.then((response) => {
 	      console.log("KV read K:", somekey + " V:" + JSON.stringify(response));
 	 })
@@ -304,8 +307,9 @@ The user may also create additional data stores as necessary. That is done as:
 	    	A promise that will resolve on success to a response containing the newly created bucket's metadata and on failure an error indicating the error status.
 
 
+				<b>Ex:</b>create a new bucket name "gamescores" that is accessible by any app user
 ```
-	PPcreateBucket(newbucket, users[], ispublic)
+	PPcreateBucket('gamescores', [], true)
 	.then((response) => {
 	      console.log("new bucket created: ", newbucket);
 	 })
@@ -314,4 +318,4 @@ The user may also create additional data stores as necessary. That is done as:
 	 })
 ```
 
-For subsequent reads/writes to this new bucket, the same name should be utilized as the bucketname, e.g. <i>newbucket</i>.
+For subsequent reads/writes to this new bucket, the same name should be utilized as the bucketname, e.g. <i>gamescores</i>.
