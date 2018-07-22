@@ -230,6 +230,7 @@ This method will return a list of this user's friends (with profile for each fri
 
 	PPgetFriends()
 	parms:
+		None
 	returns:
 	    	A promise that will resolve on success to the list of this user's friends, and on error, to the error status.
 
@@ -258,7 +259,7 @@ This method will write a KV pair to the referenced data store. If a key is used 
 	returns:
 	    	A promise that will resolve to indicate the success/error status of the write operation.
 
-				<b>Ex:</b> to write { somekey : somevalue } to your application private data store:
+>	Example: to write { somekey : somevalue } to your application private data store:
 ```
 	PPwriteData(PPgetMyBucketName(true), somekey, somevalue)
 	.then((response) => {
@@ -281,8 +282,8 @@ This method will read a value from the bucket named <i>bucketname</i> for the Ke
 	returns:
 	    	A promise that will resolve on success to a response containing the profiles of the user's friends and on failure an error indicating the error status.
 
+>	Example: to read { somekey } from your application global app data store:
 
-				<b>Ex:</b> to read { somekey } from your application global app data store:
 ```
 	PPreadData(PPgetMyBucketName(false), somekey)
 	.then((response) => {
@@ -306,9 +307,11 @@ The user may also create additional data stores as necessary. That is done as:
 	returns:
 	    	A promise that will resolve on success to a response containing the newly created bucket's metadata and on failure an error indicating the error status.
 
-
-				<b>Ex:</b>create a new bucket name "gamescores" that is accessible by any app user
+> Example: create a new bucket named "gamescores" that is accessible by any app user
 ```
+
+
+
 	PPcreateBucket('gamescores', [], true)
 	.then((response) => {
 	      console.log("new bucket created: ", newbucket);
