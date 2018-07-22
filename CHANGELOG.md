@@ -8,9 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### 0.1.4 - 2018-07-19
 ##### Added
-- New instructions for setting up your first app.
+- Improved instructions for setting up your first app.
+- Added doc section for using SDK methods
  
 ##### Changed
+- Added PPbucketCreate() method 
+- Added methods for getting and using private app data and global app data
 - Brought CHANGELOG up to date
 
 
