@@ -33,21 +33,20 @@
 ```
 $ react-native init yourapp
 ```
-This step will walk you through creating a new React Native project in /Users/x/software/ReactNative/yourapp
+This will walk you through creating a new React Native project in yourapp working directory, e.g. /Users/x/ReactNative/yourapp
 Installing react-native...
 
 + react-native@0.56.0
 added 766 packages from 361 contributors and audited 15204 packages in 21.763s
 found 0 vulnerabilities
 
-Setting up new React Native app in /Users/x/software/ReactNative/yourapp
+Setting up new React Native app in /Users/x/ReactNative/yourapp
 Installing React...
 + react@16.4.1
 added 1 package and audited 15228 packages in 4.435s
 found 0 vulnerabilities
 
 Installing Jest...
-npm WARN deprecated istanbul-lib-hook@1.2.1: 1.2.0 should have been a major version bump
 + babel-preset-react-native@5.0.2
 + babel-jest@23.4.0
 + jest@23.4.1
@@ -60,11 +59,6 @@ found 0 vulnerabilities
 ```
 $ npm i playportal
 ```
-
-The playportal package utilizes semver for release numbering. Our recommendation is to stay within a major release to avoid breaking changes. This can be achieved via your package.json by defining playportal (in your dependencies list) as:
-    "playportal": "^0.1.4"
-
-
 
 
 * ## <b>Step 6:</b> Add Client ID and Client Secret to App
@@ -94,7 +88,9 @@ The playportal package utilizes semver for release numbering. Our recommendation
     const redir = '<YOUR REDIRECT_URI HERE>';
 ```
 
-   And, in your app startup, add the initialization to the componentDidMount method:
+
+And, in your app startup code, add the initialization to the componentDidMount method:
+
 
 ```		
     export default class App extends React.Component {
@@ -116,25 +112,6 @@ The playportal package utilizes semver for release numbering. Our recommendation
 * ## <b>Step 7:</b> Configure your app for SSO (requires URL redirects aka deep linking)
 
 * #### iOS
-In the apps Info.plist add the following lines (either from Xcode or editing the file):
-
-```
-	<key>CFBundleURLTypes</key>
-	<array>
-	  <dict>
-	    <key>CFBundleTypeRole</key>
-	    <string>Editor</string>
-	    <key>CFBundleURLName</key>
-	    <string>helloworld</string>
-	    <key>CFBundleURLSchemes</key>
-	    <array>
-	      <string>helloworld</string>
-	      </array>
-	    </dict>
-	  </array>
-```	  
-
-
 In the AppDelegate.m add the import for React-Native deep linking:
 ```
   #import <React/RCTLinkingManager.h>
@@ -151,6 +128,7 @@ In the AppDelegate.m add the following lines (above the `@end`):
 ```
 
 * #### Android
+(coming soon!)
 
 * ## <b>Step 8:</b> Install the deep linking package for React-Native
 ```
@@ -204,19 +182,20 @@ $ react-native run-android
   * playPORTAL Hello World For NodeJS (Coming Soon!)
 
 
+
 ----
 
 ## Making calls into the PPSDK plugin.
 
 ### SSO Login / Authentication
-The SSO login validates a single user (player) against the playPORTAL. Players may log in with a valid playPORTAL set of credentials. If they've previously logged in, then they can continue to operate as a logged in user. 
+The SSO login validates a single user (player) against the playPORTAL. Players may log in with a valid playPORTAL set of credentials. If they've previously logged in, then they can continue to operate as a logged in user.
 
 The PPconfigure method is used to initiate this process. In conjunction with your UserListener function, the app can either:
 - if user is currently un-authorized, log a user in via SSO, and then allow full use of the playPORTAL SDK
 - if user is currently authorized, silently log in (no user interaction) and then allow full use of the playPORTAL SDK
 
 
-To support this process, first define a UserListener function that will be invoked on change of Auth status. 
+To support this process, first define a UserListener function that will be invoked on change of Auth status.
 
 ```
   export const UserListener = (u, authUpdate) => {
@@ -241,7 +220,7 @@ Then, configure the SDK. The parameters are as described previously. This call d
 --
 
 ### User / Friends
-The SDK provides methods for accessing a user's profile and a user's friends profiles. 
+The SDK provides methods for accessing a user's profile and a user's friends profiles.
 
 The user's profile is returned to the UserListener, when the user is "auth'd". The user profile contains the following properties:
 
@@ -269,7 +248,7 @@ The SDK provides a simple Key Value (KV) store. On login, two data stores are op
 
 
 * #### Write Data
-This method will write a KV pair to the referenced data store. If a key is used more than once for writing, the 	value associated with the key will be updated and reflect the most recent write operation. 
+This method will write a KV pair to the referenced data store. If a key is used more than once for writing, the 	value associated with the key will be updated and reflect the most recent write operation.
 
 	PPwriteData(bucketname, key, value)
 	parms:
@@ -278,7 +257,7 @@ This method will write a KV pair to the referenced data store. If a key is used 
 		value - value to store (JSON.stringify'able JSON, e.g. objects w/o functions)
 	returns:
 	    	A promise that will resolve to indicate the success/error status of the write operation.
-		
+
 ```
 	PPwriteData('mybucket', somekey, somevalue)
 	.then((response) => {
@@ -287,17 +266,17 @@ This method will write a KV pair to the referenced data store. If a key is used 
 	.catch((error) => {
 	     console.error(error);
 	 })
-```	
-	
+```
 
-* ####  Read data 
+
+* ####  Read data
 This method will read a value from the bucket named <i>bucketname</i> for the Key <i>key</I>. It returns a promise 	that will either contain JSON data (on success) or an error.
 
 	PPreadData(bucket, key)
 	parms:
 		bucketname - the name of the data store (string)
 		key - the key to read data from (string)
-			
+
 	returns:
 	    	A promise that will resolve on success to a response containing the profiles of the user's friends and on failure an error indicating the error status.
 
