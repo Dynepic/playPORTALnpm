@@ -71,7 +71,7 @@ $ npm i playportal
 ```
 
 
-* ## <b>Step 6:</b> Add Client ID and Client Secret to App
+* ## <b>Step 7:</b> Add Client ID and Client Secret to App
   * Add the following to the "include" section of your App.js (or other main application module).
     * ###### For the purpose of running yourapp, these keys are in plain text in the file, but for a production app you must store them securely - they uniquely identify your app and grant the permissions to your app as defined in playPORTAL Studio.
 
