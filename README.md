@@ -29,7 +29,7 @@
 
 	* Tap "Client IDs & Secrets"
 	* Tap "Generate Client ID"
-	* The values generated will be used in 'Step 5'.
+	* The values generated will be used in 'Step 7'.
   </br>
 
 * ### <b>Step 4:</b> Add a "Registered Redirect URI"
