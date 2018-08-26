@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ----
+### 0.1.6 - 2018-08-26
+##### Changed
+- The server domains for DEV, SANDBOX and PRODUCTION moved; the SDK changed to support these new URLs.
+- Re-added previous signatures for convenience methods that retrieve user's bucket names
+
+##### Added
+- On refresh access token failure with 4xx, UserListener is invoked with auth status false. On detection of this, the UserListener should present the SSO login page to the app user, since no further API calls will be successful until re-authentication.
+
 ### 0.1.5 - 2018-07-22
 ##### Changed
 - Improved descriptions for using data buckets.
@@ -15,9 +23,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ##### Added
 - Improved instructions for setting up your first app.
 - Added doc section for using SDK methods
- 
+
 ##### Changed
-- Added PPbucketCreate() method 
+- Added PPbucketCreate() method
 - Added methods for getting and using private app data and global app data
 - Brought CHANGELOG up to date
 
@@ -57,5 +65,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Unreleased
 ##### 0.1.0
 ##### 0.0.1
-
-
