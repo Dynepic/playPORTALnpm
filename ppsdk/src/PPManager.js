@@ -137,6 +137,11 @@ const refreshAccessToken = async (cb) => {
       'refresh_token': ppAuth.refreshToken,
       'grant_type': "refresh_token"
     },
+    validateStatus:  (status) => {
+      return status >= 200 && status < 300; // default
+      if((status >= 400) && (status < 500) && userListener) userListener(null, false);
+      reject(status);
+    },
   })
   .then((response) => {
 //    console.log("refresh response:", response);
