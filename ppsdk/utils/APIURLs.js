@@ -8,10 +8,12 @@ export const configureEnv = (e) => { env = e; }
 export const base = (slug) => {
   switch (env) {
     case "SANDBOX":
-        default:
-      return `https://sandbox.iokids.net/${slug}`;
+    default:
+      return `https://sandbox.playportal.io/${slug}`;
     case "PRODUCTION":
-      return `https://goplayportal.com/${slug}`;
+      return `https://api.playportal.io/${slug}`;
+    case "DEV":
+      return `https://develop-api.goplayportal.com/${slug}`;
   }
 };
 
