@@ -1,7 +1,6 @@
 'use strict';
 const { AsyncStorage } = require('react-native');
 const axios = require('axios');
-const url = require('url');
 const PPUser = require('./PPUserService');
 const PPData = require('./PPDataService');
 const APIURLs = require('../utils/APIURLs');
