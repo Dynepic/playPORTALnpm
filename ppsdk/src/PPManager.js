@@ -181,7 +181,7 @@ const getAuthPrefs = async () => {
     const ppAuth = JSON.parse(result);
     return pAuth;
   } catch (err) {
-    console.error("getAuthPrefs error:" + err + " result:"+ result);
+    console.error("getAuthPrefs error:" + err);
     clearAuth();
   }
 };
