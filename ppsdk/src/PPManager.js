@@ -91,6 +91,7 @@ export const PPgetLoginRoute = () => {
 export const PPaddUserListener = (u) => { userListener = u; };
 
 export const PPhandleOpenURL = (navigation) => {
+  console.log(navigation)
   ppAuth.status = true;
   ppAuth.accessToken = navigation.getParam('access_token', 'unknown');
   ppAuth.refreshToken = navigation.getParam('refresh_token', 'unknown');
