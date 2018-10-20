@@ -1,6 +1,7 @@
 'use strict';
 const { AsyncStorage } = require('react-native');
 const axios = require('axios');
+const URL = require('url-parse');
 const PPUser = require('./PPUserService');
 const PPData = require('./PPDataService');
 const APIURLs = require('../utils/APIURLs');
@@ -90,12 +91,12 @@ export const PPgetLoginRoute = () => {
 export const PPaddUserListener = (u) => { userListener = u; };
 
 export const PPhandleOpenURL = (navigation) => {
-  const url = new URL(navigation.url)
+  const url = new URL(navigation.url, true)
   ppAuth.status = true;
-  ppAuth.accessToken = url.searchParams.get('access_token') || 'unknown'
-  ppAuth.refreshToken = url.searchParams.get('refresh_token') || 'unknown'
+  ppAuth.accessToken = url.query['access_token'] || 'unknown'
+  ppAuth.refreshToken = url.query['refresh_token'] || 'unknown'
   ppAuth.expirationTime = new Date();
-  if(url.searchParams.get('expires_in') === "1d") {
+  if(url.query['expires_in'] === "1d") {
     ppAuth.expirationTime.setHours(ppAuth.expirationTime.getHours() + 12)
   } else {
     ppAuth.expirationTime.setHours(ppAuth.expirationTime.getHours() + 1)
