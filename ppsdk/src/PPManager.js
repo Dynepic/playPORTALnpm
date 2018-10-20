@@ -179,7 +179,7 @@ const getAuthPrefs = async () => {
   try {
     const result = await AsyncStorage.getItem('@auth')
     const ppAuth = JSON.parse(result);
-    return pAuth;
+    return ppAuth;
   } catch (err) {
     console.error("getAuthPrefs error:" + err);
     clearAuth();
