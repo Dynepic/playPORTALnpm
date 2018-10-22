@@ -1,7 +1,7 @@
 'use strict';
-import { AsyncStorage} from 'react-native';
-import axios from 'axios';
-
+const { AsyncStorage } = require('react-native');
+const axios = require('axios');
+const URL = require('url-parse');
 const PPUser = require('./PPUserService');
 const PPData = require('./PPDataService');
 const APIURLs = require('../utils/APIURLs');
@@ -46,38 +46,42 @@ export const PPconfigure =  (id, sec, redir, env) => {
   ppAuth = {accessToken: "unknown", refreshToken: "unknown", expirationTime: Date.now(), status:false },
 
   getAuthPrefs()
-  .then((response) => {
-    refreshAccessToken((parms) => {
-      if((parms.refreshToken != "") && (parms.refreshToken != "unknown")) {
-        PPUser.getProfile()
-        .then((response) => {
-          ppUser = response;
-          let bu=[];
-          if(userListener) userListener(response, ppAuth.status);
-          PPData.createBucket(_bucketName(true), bu, true)
-          .then((response) => {
-            // optionally return contents
-          })
-          .catch((error) => {
-            console.error("join global app data error: " + error);
-          });
+    .then((response) => {
+      if(ppAuth.status) {
+      refreshAccessToken((parms) => {
+        if((parms.refreshToken != "") && (parms.refreshToken != "unknown")) {
+          PPUser.getProfile()
+            .then((response) => {
+              ppUser = response;
+              let bu=[];
+              if(userListener) userListener(response, ppAuth.status);
+              PPData.createBucket(_bucketName(true), bu, true)
+              .then((response) => {
+                // optionally return contents
+              })
+              .catch((error) => {
+                console.error("join global app data error: " + error);
+              });
 
-          bu.push(ppUser.userId);
-          PPData.createBucket(_bucketName(false), bu, false)
-          .then((response) => {
-            // optionally return contents
-          })
-          .catch((error) => {
-            console.error("create private data store error: " + error);
-          });
+              bu.push(ppUser.userId);
+              PPData.createBucket(_bucketName(false), bu, false)
+              .then((response) => {
+                // optionally return contents
+              })
+              .catch((error) => {
+                console.error("create private data store error: " + error);
+              });
 
-          if(userListener) userListener(response, ppAuth.status);
-          setAuthPrefs(ppAuth);
-        });
-      } else {
-        if(userListener) userListener(ppUser, ppAuth.status);
-      }
-    });
+              if(userListener) userListener(response, ppAuth.status);
+              setAuthPrefs(ppAuth);
+            });
+        } else {
+          if(userListener) userListener(ppUser, ppAuth.status);
+        }
+      });
+    } else {
+      if(userListener) userListener(ppUser, ppAuth.status);
+    }
   });
 }
 
@@ -87,40 +91,41 @@ export const PPgetLoginRoute = () => {
 export const PPaddUserListener = (u) => { userListener = u; };
 
 export const PPhandleOpenURL = (navigation) => {
+  const url = new URL(navigation.url, true)
   ppAuth.status = true;
-  ppAuth.accessToken = navigation.getParam('access_token', 'unknown');
-  ppAuth.refreshToken = navigation.getParam('refresh_token', 'unknown');
+  ppAuth.accessToken = url.query['access_token'] || 'unknown'
+  ppAuth.refreshToken = url.query['refresh_token'] || 'unknown'
   ppAuth.expirationTime = new Date();
-  if(navigation.getParam('expires_in', 'unknown') == "1d") {
+  if(url.query['expires_in'] === "1d") {
     ppAuth.expirationTime.setHours(ppAuth.expirationTime.getHours() + 12)
   } else {
     ppAuth.expirationTime.setHours(ppAuth.expirationTime.getHours() + 1)
   }
   // get user profile info and open buckets
   PPUser.getProfile()
-  .then((response) => {
-    ppUser = response;
-    if(userListener) userListener(response, ppAuth.status);
-    let bu=[];
-    PPData.createBucket(_bucketName(true), bu, true)
     .then((response) => {
-      // optionally return existing contents
-    })
-    .catch((error) => {
-      console.error("join global app data error: " + error);
-    });
+      ppUser = response;
+      if(userListener) userListener(response, ppAuth.status);
+      let bu=[];
+      PPData.createBucket(_bucketName(true), bu, true)
+      .then((response) => {
+        // optionally return existing contents
+      })
+      .catch((error) => {
+        console.error("join global app data error: " + error);
+      });
 
-    bu.push(ppUser.userId);
-    PPData.createBucket(_bucketName(false), bu, false)
-    .then((response) => {
-      // optionally return existing contents
-    })
-    .catch((error) => {
-      console.error("create private data store error: " + error);
-    });
+      bu.push(ppUser.userId);
+      PPData.createBucket(_bucketName(false), bu, false)
+      .then((response) => {
+        // optionally return existing contents
+      })
+      .catch((error) => {
+        console.error("create private data store error: " + error);
+      });
 
-    if(userListener) userListener(response, ppAuth.status);
-  });
+      if(userListener) userListener(response, ppAuth.status);
+    });
   setAuthPrefs(ppAuth); // save server tokens, etc.
 };
 
@@ -129,23 +134,22 @@ export const PPgetFriends = () => {
 };
 
 const refreshAccessToken = async (cb) => {
-  await axios({
-    method: 'post',
-    url: APIURLs.base(`oauth`) + '/token',
-    params: {
-      'client_id': ppClient.id,
-      'client_secret' : ppClient.secret,
-      'refresh_token': ppAuth.refreshToken,
-      'grant_type': "refresh_token"
-    },
-    validateStatus:  (status) => {
-      return status >= 200 && status < 300; // default
-      if((status >= 400) && (status < 500) && userListener) userListener(null, false);
-      reject(status);
-    },
-  })
-  .then((response) => {
-//    console.log("refresh response:", response);
+  try {
+    const response = await axios({
+      method: 'post',
+      url: APIURLs.base(`oauth`) + '/token',
+      params: {
+        'client_id': ppClient.id,
+        'client_secret' : ppClient.secret,
+        'refresh_token': ppAuth.refreshToken,
+        'grant_type': "refresh_token"
+      },
+      validateStatus:  (status) => {
+        return status >= 200 && status < 300; // default
+        if((status >= 400) && (status < 500) && userListener) userListener(null, false);
+      },
+    })
+
     ppAuth.status = true;
     ppAuth.accessToken = response.data.access_token;
     ppAuth.refreshToken = response.data.refresh_token;
@@ -157,7 +161,9 @@ const refreshAccessToken = async (cb) => {
       ppAuth.expirationTime.setHours(ppAuth.expirationTime.getHours() + 1)
     }
     if(cb) cb(response.data);
-  })
+  } catch (err) {
+    console.error("refreshAccessToken error:" + err)
+  }
 };
 
 const clearAuth = () => {
@@ -171,23 +177,22 @@ const clearAuth = () => {
 const logout = () => { clearAuth(); };
 
 const getAuthPrefs = async () => {
-  await AsyncStorage.getItem('@auth', (err, result) => {
-    if(err) {
-      console.error("getAuthPrefs error:" + err + " result:"+ result);
-      clearAuth();
-      reject("Error: getAuthPrefs - " + err);
-    } else {
-      if(result) ppAuth = JSON.parse(result);
-      return(ppAuth);
-    }
-  });
+  try {
+    const result = await AsyncStorage.getItem('@auth')
+    const ppAuth = JSON.parse(result);
+    return ppAuth;
+  } catch (err) {
+    console.error("getAuthPrefs error:" + err);
+    clearAuth();
+  }
 };
 
 const setAuthPrefs = async () => {
-  AsyncStorage.setItem('@auth', JSON.stringify(ppAuth), (err) => {
-    if(err) console.error(err);
-    return true;
-  });
+  try {
+    await AsyncStorage.setItem('@auth', JSON.stringify(ppAuth))
+  } catch (e) {
+    console.error("setAuthPrefs error:" + err);
+  }
 };
 
 const PPManager = {
