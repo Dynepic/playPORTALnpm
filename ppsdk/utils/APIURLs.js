@@ -2,7 +2,7 @@
  * APIURLS - contains urls for api calls
  */
 
-var env = "SANDBOX";
+var env = "DEV";
 export const configureEnv = (e) => { env = e; }
 
 export const base = (slug) => {
@@ -42,15 +42,15 @@ App.base = `${base('app')}/v1`;
 App.data = `${App.base}/data`;
 
 //  ImageEdit URLs
-const Image = {};
-Image.base = `${base('image')}/v1`;
-Image.static = `${Image.base}/static`;
+export const Image = {};
+Image.base = base('image');
+Image.static = `${Image.base}/v1/static/`;
 
 console.log("App Server Routes: ", App);
 console.log("User Server Routes: ", User);
+console.log("Image Server Routes: ", Image);
 
 export default {
 //  User,
   App,
-  Image,
 };
