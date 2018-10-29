@@ -1,35 +1,34 @@
 {
-  "_from": "playportal@0.0.2",
-  "_id": "playportal@0.0.2",
+  "_from": "playportal",
+  "_id": "playportal@0.1.7",
   "_inBundle": false,
-  "_integrity": "sha512-dgtg34tXMAK0WXl8Fp21DvFVa2mW/OC54uJcQy6mMdoRcy9Qd1A7g9MVjSyBbiy5zdOBUFK5+/HtdcTSVg8TxQ==",
+  "_integrity": "sha512-JZ9aYvFICOFUu9dqm3vNZfNZT8dyu0OdhugEKwtGuhKMaxqznbRI7hIIxh5eUVpuMuF4ZeP+/PRr9ewx0nok/A==",
   "_location": "/playportal",
   "_phantomChildren": {},
   "_requested": {
-    "type": "version",
+    "type": "tag",
     "registry": true,
-    "raw": "playportal@0.0.2",
+    "raw": "playportal",
     "name": "playportal",
     "escapedName": "playportal",
-    "rawSpec": "0.0.2",
+    "rawSpec": "",
     "saveSpec": null,
-    "fetchSpec": "0.0.2"
+    "fetchSpec": "latest"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/playportal/-/playportal-0.0.2.tgz",
-  "_shasum": "20293c8c291b5fc3380377d9a6290a1d3e417bbc",
-  "_spec": "playportal@0.0.2",
-  "_where": "/Users/g11baldwin/software/ReactNative/IncTestNative",
+  "_resolved": "https://registry.npmjs.org/playportal/-/playportal-0.1.7.tgz",
+  "_shasum": "e3abb4200d4a17ae07f80cdccc5f5e190eeed783",
+  "_spec": "playportal",
+  "_where": "/Users/g11baldwin/software/ReactNative/rnhelloworld",
   "bugs": {
     "url": "https://github.com/playportal-studio/playPORTALnpm/issues"
   },
   "bundleDependencies": false,
   "dependencies": {
-    "axios": "^0.18.0",
-    "url-parse": "^1.4.3"
+    "axios": "^0.18.0"
   },
   "deprecated": false,
   "description": "Javascript SDK for utilizing playPORTAL service.",

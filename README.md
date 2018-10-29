@@ -36,7 +36,7 @@
 
 	* Tap "Registered Redirect URIs"
 	* Tap "+ Add Redirect URI"
-	* Enter your app's redirect uri (e.g. - yourapp://redirect) in to the prompt and click "Submit".
+	* Enter your app's redirect uri (e.g. - helloworld://redirect) in to the prompt and click "Submit".
   </br>
 
 * ## <b>Step 5:</b> Create a react-native app (if app doesn't exist)
@@ -83,8 +83,7 @@ $ npm i playportal
       PPisAuthenticated,
       PPgetLoginRoute,
       PPhandleOpenURL,
-      PPaddUserListener,
-			PPlogout,
+      PPaddUserListener,  
       PPreadData,
       PPwriteData,
       PPgetFriends
@@ -212,30 +211,15 @@ To support this process, first define a UserListener function that will be invok
   export const UserListener = (u, authUpdate) => {
 	console.log("UserListener invoked on user:", JSON.stringify(userprofile) +" auth status:"+ authUpdate);
 	authenticated = authUpdate;
-```
+	if(authenticated == true) {
+	    userprofile = u; // save user profile for display, etc
+	} else {
+	   // display modal with login button or redirect to SSO login
+	   ssoUrl = PPgetLoginRoute(); // URL for SSO login is here
 
-Then in your UI code, condition presentation based on auth state:
-```
-class SomeUiScreen extends React.Component {
-	componentWillMount() {
-		if(!authenticated) this.props.navigation.push('Login')
+
 	}
-	render() { ... } // when authenticated, renders some screen
-}
-```
-And present the Login (aka SSO screen) when appropriate.
-```
-class LoginScreen extends React.Component {
-	render() {
-		ssoUrl = { uri: PPgetLoginRoute() };
-		return (
-			<WebView
-			source={ssoUrl}
-			javaScriptEnabled={true}
-			domStorageEnabled={true}  />
-		);
-	}
-}
+  }
 ```
 
 
@@ -248,22 +232,7 @@ Then, configure the SDK. The parameters are as described previously. This call d
 ### User / Friends
 The SDK provides methods for accessing a user's profile and a user's friends profiles.
 
-The user's profile is returned to the UserListener, when the user is "auth'd". The user profile contains the following elements:
-
-userId - string
-handle - String
-firstName - String
-lastName - String
-country - String
-accountType - String in  {}
-userType - String in {}
-profilePicId - String
-coverPhotoId - String
-age - Integer
-
-##### User Image
-The User's profile image and coverPhoto can be retrieved and displayed in a scale appropriate to the app.
-
+The user's profile is returned to the UserListener, when the user is "auth'd". The user profile contains the following properties:
 
 
 * #### Get Friends
